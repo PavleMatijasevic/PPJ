@@ -1,0 +1,43 @@
+    <paket id="1">
+        <naziv>pandas</naziv>
+        <verzija>0.23.3</verzija>
+        <opis>Biblioteka za rad sa podacima</opis>
+        <repo>github</repo>
+        <veb>pandas.pydata.org</veb>
+    </paket>
+    <paket id="2">
+        <naziv>pytorich</naziv>
+        <verzija>0.4.1</verzija>
+        <opis>Biblioteka za duboko ucenje</opis>
+        <repo>bitbucket</repo>
+        <veb>www.pytorich.org</veb>
+    </paket>
+    <paket id="3">
+    <naziv>matplotlib</naziv>
+    <verzija>3.0.2</verzija>
+    <repo>gitlab</repo>
+    <opis>Vizuelizacija podataka.</opis>
+    <veb>www.matplotlib.org</veb>
+    </paket>
+    <paket id="4">
+    <naziv>tester</naziv>
+    <verzija>2.3</verzija>
+    <opis>Biblioteka za testiranje koda.</opis>
+    <repo>github</repo>
+    <veb>tonytester.com</veb>
+    </paket>
+    <paket id="5">
+    <naziv>los naziv paketa</naziv>
+    <verzija>1.1.1</verzija>
+    <veb>lnp.org</veb>
+    <opis>Highway to heaven</opis>
+    <repo>bitbucket</repo>
+    </paket>
+    <paket id="6">
+    <naziv>los primer</naziv>
+    <verzija>3.0.</verzija>
+    <repo>bitbucket</repo>
+    <opis>Los Python paket.</opis>
+    <veb>www.matplotlib.</veb>
+    </paket>
+    
