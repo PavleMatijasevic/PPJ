@@ -1,0 +1,10 @@
+egrep '((\d\d?/\d\d?/\d\d\d\d);([A-Za-z ]+);([A-Za-z ]+);(win|loss);(win|loss);(Submission|Decision|KO);([A-Za-z ]+);([1|2|3|4|5]);(\d\d?:\d\d?))' ufc.csv
+
+
+egrep '.' ufc.csv | sed 's~([0-9][0-9]?)\/([0-9][0-9]?)\/([0-9]{4});~\2~'
+
+
+
+(\d\d?/\d\d?/\d\d\d\d);([A-Za-z ]+);([A-Za-z ]+);(win|loss);(win|loss);(Submission|Decision|KO);([A-Za-z ]+);([1|2|3|4|5]);((\d\d?:\d\d?)
+
+prva : datum

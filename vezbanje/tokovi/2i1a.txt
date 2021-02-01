@@ -1,0 +1,7 @@
+Spisak studenata sa 1.toka i grupe A
+------------------------------------
+Marinko Marjanovic , mi10571
+Mihailo Avramovic , mn17499
+Milana Petrov , aa09090
+Nikolina Tadic , mi13000
+---------Kraj spiska----------------

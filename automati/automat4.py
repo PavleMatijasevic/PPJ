@@ -4,9 +4,10 @@ import re
 # ne radi kako treba
 
 stanje = 'AD'
-zavrsno = 'CE'
+zavrsno = 'C'
+zavrsno1 = 'E'
 
-prelaz = {('AD', 'a'):'B', ('AD', 'b'):'CE', ('AD', 'c'):'AD',('B', 'a'):'CE', ('B','b'):'CE', ('B','c'):'AD', ('CE','b'):'CE', ('CE', 'c'):'CE', ('CE','c'):'CE'}
+prelaz = {('AD', 'a'):'B', ('AD', 'b'):'C', ('AD', 'c'):'AD',('B', 'a'):'C', ('B','b'):'C', ('B','c'):'AD', ('C','b'):'C', ('C', 'c'):'E', ('E','c'):'E'}
 
 
 rec = input("Unesite celu rec: ")
@@ -20,7 +21,7 @@ for c in rec:
     if prelaz.get((stanje, c)) is None:
         sys.exit("Stanje greske, rec se ne prihvata!")
     stanje = prelaz[(stanje, c)]
-if zavrsno == stanje:
+if (zavrsno == stanje or zavrsno1 == stanje): 
     print("Rec se nalazi u jeziku!")
 else:
     print("Rec se ne nalazi u jeziku!")
