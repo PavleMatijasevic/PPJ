@@ -1,39 +1,36 @@
 %option noyywrap
 
 %{
-    int broj_otvorenihZagrada = 0;
+    int brojOtvorenihZagrada = 0;
 %}
 
 
 %%
-"(" {broj_otvorenihZagrada++;}
+"(" {brojOtvorenihZagrada++; ECHO;}
 ")" {
-    if(broj_otvorenihZagrada>0){
-        broj_otvorenihZagrada--;
-    }
+    ECHO;
+    if(brojOtvorenihZagrada > 0){
+        brojOtvorenihZagrada--;
+        }
     else{
-        printf("Zagrade nisu uparene!\n");
-        return(-1);
+        printf("Zagrade nisu dobro uparene!\n");
+        return (-1);
+        }
     }
-    }
-.   {}
-\n  {}
+.   {ECHO;}
+\n  {ECHO;} 
+
 
 %%
 
 int main(){
-    
-    if(yylex() == -1){
-    exit(EXIT_FAILURE);
-    
-    }
-    
-    if(broj_otvorenihZagrada == 0){
-        printf("Zagrade su uparene kako treba!\n");
-    }
-    else{
-    printf("Zagrade nisu uparene kako treba!\n");
-    }
-    
+
+    if(yylex() == -1)
+        exit(EXIT_FAILURE);
+    if(brojOtvorenihZagrada == 0)
+        printf("Zagrade su dobro uparene!\n");
+    else
+        printf("Zagrade nisu dobro uparene!\n");
+
     exit(EXIT_SUCCESS);
-    }
+}

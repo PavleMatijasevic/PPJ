@@ -446,9 +446,10 @@ int yy_flex_debug = 0;
 char *yytext;
 #line 1 "lexer.l"
 #line 4 "lexer.l"
-    #include "tokeni.h"
-#line 451 "lex.yy.c"
+#include "tokeni.h"
+
 #line 452 "lex.yy.c"
+#line 453 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -665,8 +666,7 @@ YY_DECL
 		}
 
 	{
-#line 7 "lexer.l"
-
+#line 8 "lexer.l"
 
 #line 672 "lex.yy.c"
 
@@ -728,45 +728,45 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 YY_RULE_SETUP
 #line 9 "lexer.l"
-{ return BROJ; }
+{   return BROJ;    }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
 #line 10 "lexer.l"
-{ return PLUS; }
+{   return PLUS;    }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
 #line 11 "lexer.l"
-{ return PUTA; }
+{   return PUTA;    }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
 #line 12 "lexer.l"
-{ return OZ; }
+{   return OZ;      }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
 #line 13 "lexer.l"
-{ return ZZ; }
+{   return ZZ;      }
 	YY_BREAK
 case 6:
 /* rule 6 can match eol */
 YY_RULE_SETUP
 #line 14 "lexer.l"
-{ }
+{                   }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 15 "lexer.l"
 {
-            fprintf(stderr, "Leksicka greska: %s\n", yytext);
+            fprintf(stderr, "Leksicka greska: %s\n",yytext);
             exit(EXIT_FAILURE);
-            }
+        }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 19 "lexer.l"
+#line 20 "lexer.l"
 ECHO;
 	YY_BREAK
 #line 773 "lex.yy.c"
@@ -1774,6 +1774,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 19 "lexer.l"
+#line 20 "lexer.l"
 
+    
 

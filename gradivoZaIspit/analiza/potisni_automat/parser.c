@@ -43,7 +43,6 @@ int main(int argc, char** argv) {
 					push(PLUS);
 				}
 				else if (preduvid == ZZ || preduvid == EOI) {
-					
 					pop();
 				}
 				else {
@@ -118,7 +117,7 @@ int pop() {
 
 void push(int x) {
 	
-	check_error(sp < MAX_DEPTH, "Pun stek");
+	check_error(sp > MAX_DEPTH, "Pun stek");
 	
 	stek[sp++] = x;
 	

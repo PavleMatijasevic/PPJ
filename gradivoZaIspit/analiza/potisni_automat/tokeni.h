@@ -22,11 +22,11 @@
 #define PUTA    (5)
 
     
-#define E		(100)
-#define EP		(101)
-#define T		(102)
-#define TP		(103)
-#define F		(104)
+#define E   (100)
+#define EP  (101)
+#define T   (102)
+#define TP  (103)
+#define F   (104)
 
     
 #endif
