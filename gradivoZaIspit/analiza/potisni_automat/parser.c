@@ -1,3 +1,12 @@
+/* E -> T EP			(, BROJ
+ * TP -> + T EP			+
+ * 		eps				), EOI
+ * T -> F TP			(, BROJ
+ * TP -> * F TP			*
+ *      eps				+, ZZ, EOI
+ * F -> ( E )			(
+ * 		BROJ			BROJ
+ */
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -10,15 +19,17 @@ extern int yylex();
 int stek[MAX_DEPTH];
 int sp = 0;
 
-int pop();
 void push(int x);
+int pop(void);
 int peek(void);
+	
 int check(int x);
 int empty(void);
 
 int main(int argc, char** argv) {
 	
 	int preduvid = yylex();
+	
 	push(E);
 	
 	while (!empty()) {
@@ -32,7 +43,7 @@ int main(int argc, char** argv) {
 					push(T);
 				}
 				else {
-					check_error(0, "greska");
+					check_error(0,"");
 				}
 				break;
 			case EP:
@@ -42,21 +53,22 @@ int main(int argc, char** argv) {
 					push(T);
 					push(PLUS);
 				}
-				else if (preduvid == ZZ || preduvid == EOI) {
+				else if (preduvid == ZZ || preduvid == EOI){
+					
 					pop();
 				}
 				else {
-					check_error(0, "greska");
+					check_error(0,"");
 				}
 				break;
 			case T:
 				if (preduvid == BROJ || preduvid == OZ) {
 					pop();
-					push(TP); 
+					push(TP);
 					push(F);
 				}
 				else {
-					check_error(0, "greska");
+					check_error(0,"");
 				}
 				break;
 			case TP:
@@ -72,7 +84,7 @@ int main(int argc, char** argv) {
 					pop();
 				}
 				else {
-					check_error(0, "greska");
+					check_error(0,"");
 				}
 				break;
 			case F:
@@ -83,57 +95,56 @@ int main(int argc, char** argv) {
 					push(OZ);
 				}
 				else if (preduvid == BROJ) {
+						
 					pop();
 					push(BROJ);
 				}
 				else {
-					check_error(0, "greska");
+					check_error(0,"");
 				}
 				break;
 			default:
 				if (check(preduvid)) {
+					
 					pop();
 					preduvid = yylex();
 				}
 				else {
-					check_error(0, "greska");
+					check_error(0,"");
 				}
 				break;
 		}
 	}
 	
-	printf("Sve ok!\n");
-	
+	printf("Sve ok\n");
 	
 	exit(EXIT_SUCCESS);
 }
 
-int pop() {
-	
-	check_error(sp > 0, "Prazan stek");
-	
-	return stek[--sp];
-}
-
 void push(int x) {
 	
-	check_error(sp > MAX_DEPTH, "Pun stek");
+	check_error(sp < MAX_DEPTH, "pun stek");
 	
 	stek[sp++] = x;
+}
+
+int pop(void) {
 	
-	return;
+	check_error(sp > 0, "prazan stek");
+	
+	return stek[--sp];	
 }
 
 int peek(void) {
 	
-	check_error(sp > 0, "Prazan stek");
+	check_error(sp > 0, "prazan stek");
 	
 	return stek[sp - 1];
 }
 
 int check(int x) {
 	
-	check_error(sp > 0, "Prazan stek");
+	check_error(sp > 0, "prazan stek");
 	
 	return stek[sp-1] == x;
 }
