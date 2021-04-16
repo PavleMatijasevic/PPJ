@@ -1,0 +1,3 @@
+Za drugi mali zadatak:
+    Pisem tokeni.h  lexer.l parser.c
+    
