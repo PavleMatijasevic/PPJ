@@ -1,0 +1,545 @@
+Grammar
+
+    0 $accept: program $end
+
+    1 program: program naredba ';'
+    2        | naredba ';'
+
+    3 naredba: PRINT_T '(' FMT_STRING ',' ID ')'
+    4        | definicija
+    5        | ID DODELA izraz
+    6        | NORM_T '(' ID ')'
+
+    7 definicija: DEF_T '(' ID ')'
+    8           | DEF_T '(' ID ',' lista_el ')'
+
+    9 lista_el: lista_el ',' element
+   10         | element
+
+   11 element: ID ':' BROJ
+
+   12 izraz: izraz '+' izraz
+   13      | izraz '-' izraz
+   14      | izraz '*' izraz
+   15      | izraz '/' izraz
+   16      | '(' izraz ')'
+   17      | '-' izraz
+   18      | BROJ '*' izraz
+   19      | ID
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    '(' (40) 3 6 7 8 16
+    ')' (41) 3 6 7 8 16
+    '*' (42) 14 18
+    '+' (43) 12
+    ',' (44) 3 8 9
+    '-' (45) 13 17
+    '/' (47) 15
+    ':' (58) 11
+    ';' (59) 1 2
+    error (256)
+    UMINUS (258)
+    DEF_T (259) 7 8
+    PRINT_T (260) 3
+    NORM_T (261) 6
+    DODELA (262) 5
+    BROJ <v> (263) 11 18
+    ID <ime> (264) 3 5 6 7 8 11 19
+    FMT_STRING <ime> (265) 3
+
+
+Nonterminals, with rules where they appear
+
+    $accept (20)
+        on left: 0
+    program (21)
+        on left: 1 2
+        on right: 0 1
+    naredba (22)
+        on left: 3 4 5 6
+        on right: 1 2
+    definicija (23)
+        on left: 7 8
+        on right: 4
+    lista_el <k> (24)
+        on left: 9 10
+        on right: 8 9
+    element <e> (25)
+        on left: 11
+        on right: 9 10
+    izraz <k> (26)
+        on left: 12 13 14 15 16 17 18 19
+        on right: 5 12 13 14 15 16 17 18
+
+
+State 0
+
+    0 $accept: . program $end
+
+    DEF_T    shift, and go to state 1
+    PRINT_T  shift, and go to state 2
+    NORM_T   shift, and go to state 3
+    ID       shift, and go to state 4
+
+    program     go to state 5
+    naredba     go to state 6
+    definicija  go to state 7
+
+
+State 1
+
+    7 definicija: DEF_T . '(' ID ')'
+    8           | DEF_T . '(' ID ',' lista_el ')'
+
+    '('  shift, and go to state 8
+
+
+State 2
+
+    3 naredba: PRINT_T . '(' FMT_STRING ',' ID ')'
+
+    '('  shift, and go to state 9
+
+
+State 3
+
+    6 naredba: NORM_T . '(' ID ')'
+
+    '('  shift, and go to state 10
+
+
+State 4
+
+    5 naredba: ID . DODELA izraz
+
+    DODELA  shift, and go to state 11
+
+
+State 5
+
+    0 $accept: program . $end
+    1 program: program . naredba ';'
+
+    $end     shift, and go to state 12
+    DEF_T    shift, and go to state 1
+    PRINT_T  shift, and go to state 2
+    NORM_T   shift, and go to state 3
+    ID       shift, and go to state 4
+
+    naredba     go to state 13
+    definicija  go to state 7
+
+
+State 6
+
+    2 program: naredba . ';'
+
+    ';'  shift, and go to state 14
+
+
+State 7
+
+    4 naredba: definicija .
+
+    $default  reduce using rule 4 (naredba)
+
+
+State 8
+
+    7 definicija: DEF_T '(' . ID ')'
+    8           | DEF_T '(' . ID ',' lista_el ')'
+
+    ID  shift, and go to state 15
+
+
+State 9
+
+    3 naredba: PRINT_T '(' . FMT_STRING ',' ID ')'
+
+    FMT_STRING  shift, and go to state 16
+
+
+State 10
+
+    6 naredba: NORM_T '(' . ID ')'
+
+    ID  shift, and go to state 17
+
+
+State 11
+
+    5 naredba: ID DODELA . izraz
+
+    '-'   shift, and go to state 18
+    BROJ  shift, and go to state 19
+    ID    shift, and go to state 20
+    '('   shift, and go to state 21
+
+    izraz  go to state 22
+
+
+State 12
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+State 13
+
+    1 program: program naredba . ';'
+
+    ';'  shift, and go to state 23
+
+
+State 14
+
+    2 program: naredba ';' .
+
+    $default  reduce using rule 2 (program)
+
+
+State 15
+
+    7 definicija: DEF_T '(' ID . ')'
+    8           | DEF_T '(' ID . ',' lista_el ')'
+
+    ','  shift, and go to state 24
+    ')'  shift, and go to state 25
+
+
+State 16
+
+    3 naredba: PRINT_T '(' FMT_STRING . ',' ID ')'
+
+    ','  shift, and go to state 26
+
+
+State 17
+
+    6 naredba: NORM_T '(' ID . ')'
+
+    ')'  shift, and go to state 27
+
+
+State 18
+
+   17 izraz: '-' . izraz
+
+    '-'   shift, and go to state 18
+    BROJ  shift, and go to state 19
+    ID    shift, and go to state 20
+    '('   shift, and go to state 21
+
+    izraz  go to state 28
+
+
+State 19
+
+   18 izraz: BROJ . '*' izraz
+
+    '*'  shift, and go to state 29
+
+
+State 20
+
+   19 izraz: ID .
+
+    $default  reduce using rule 19 (izraz)
+
+
+State 21
+
+   16 izraz: '(' . izraz ')'
+
+    '-'   shift, and go to state 18
+    BROJ  shift, and go to state 19
+    ID    shift, and go to state 20
+    '('   shift, and go to state 21
+
+    izraz  go to state 30
+
+
+State 22
+
+    5 naredba: ID DODELA izraz .
+   12 izraz: izraz . '+' izraz
+   13      | izraz . '-' izraz
+   14      | izraz . '*' izraz
+   15      | izraz . '/' izraz
+
+    '+'  shift, and go to state 31
+    '-'  shift, and go to state 32
+    '*'  shift, and go to state 33
+    '/'  shift, and go to state 34
+
+    $default  reduce using rule 5 (naredba)
+
+
+State 23
+
+    1 program: program naredba ';' .
+
+    $default  reduce using rule 1 (program)
+
+
+State 24
+
+    8 definicija: DEF_T '(' ID ',' . lista_el ')'
+
+    ID  shift, and go to state 35
+
+    lista_el  go to state 36
+    element   go to state 37
+
+
+State 25
+
+    7 definicija: DEF_T '(' ID ')' .
+
+    $default  reduce using rule 7 (definicija)
+
+
+State 26
+
+    3 naredba: PRINT_T '(' FMT_STRING ',' . ID ')'
+
+    ID  shift, and go to state 38
+
+
+State 27
+
+    6 naredba: NORM_T '(' ID ')' .
+
+    $default  reduce using rule 6 (naredba)
+
+
+State 28
+
+   12 izraz: izraz . '+' izraz
+   13      | izraz . '-' izraz
+   14      | izraz . '*' izraz
+   15      | izraz . '/' izraz
+   17      | '-' izraz .
+
+    $default  reduce using rule 17 (izraz)
+
+
+State 29
+
+   18 izraz: BROJ '*' . izraz
+
+    '-'   shift, and go to state 18
+    BROJ  shift, and go to state 19
+    ID    shift, and go to state 20
+    '('   shift, and go to state 21
+
+    izraz  go to state 39
+
+
+State 30
+
+   12 izraz: izraz . '+' izraz
+   13      | izraz . '-' izraz
+   14      | izraz . '*' izraz
+   15      | izraz . '/' izraz
+   16      | '(' izraz . ')'
+
+    '+'  shift, and go to state 31
+    '-'  shift, and go to state 32
+    '*'  shift, and go to state 33
+    '/'  shift, and go to state 34
+    ')'  shift, and go to state 40
+
+
+State 31
+
+   12 izraz: izraz '+' . izraz
+
+    '-'   shift, and go to state 18
+    BROJ  shift, and go to state 19
+    ID    shift, and go to state 20
+    '('   shift, and go to state 21
+
+    izraz  go to state 41
+
+
+State 32
+
+   13 izraz: izraz '-' . izraz
+
+    '-'   shift, and go to state 18
+    BROJ  shift, and go to state 19
+    ID    shift, and go to state 20
+    '('   shift, and go to state 21
+
+    izraz  go to state 42
+
+
+State 33
+
+   14 izraz: izraz '*' . izraz
+
+    '-'   shift, and go to state 18
+    BROJ  shift, and go to state 19
+    ID    shift, and go to state 20
+    '('   shift, and go to state 21
+
+    izraz  go to state 43
+
+
+State 34
+
+   15 izraz: izraz '/' . izraz
+
+    '-'   shift, and go to state 18
+    BROJ  shift, and go to state 19
+    ID    shift, and go to state 20
+    '('   shift, and go to state 21
+
+    izraz  go to state 44
+
+
+State 35
+
+   11 element: ID . ':' BROJ
+
+    ':'  shift, and go to state 45
+
+
+State 36
+
+    8 definicija: DEF_T '(' ID ',' lista_el . ')'
+    9 lista_el: lista_el . ',' element
+
+    ','  shift, and go to state 46
+    ')'  shift, and go to state 47
+
+
+State 37
+
+   10 lista_el: element .
+
+    $default  reduce using rule 10 (lista_el)
+
+
+State 38
+
+    3 naredba: PRINT_T '(' FMT_STRING ',' ID . ')'
+
+    ')'  shift, and go to state 48
+
+
+State 39
+
+   12 izraz: izraz . '+' izraz
+   13      | izraz . '-' izraz
+   14      | izraz . '*' izraz
+   15      | izraz . '/' izraz
+   18      | BROJ '*' izraz .
+
+    $default  reduce using rule 18 (izraz)
+
+
+State 40
+
+   16 izraz: '(' izraz ')' .
+
+    $default  reduce using rule 16 (izraz)
+
+
+State 41
+
+   12 izraz: izraz . '+' izraz
+   12      | izraz '+' izraz .
+   13      | izraz . '-' izraz
+   14      | izraz . '*' izraz
+   15      | izraz . '/' izraz
+
+    '*'  shift, and go to state 33
+    '/'  shift, and go to state 34
+
+    $default  reduce using rule 12 (izraz)
+
+
+State 42
+
+   12 izraz: izraz . '+' izraz
+   13      | izraz . '-' izraz
+   13      | izraz '-' izraz .
+   14      | izraz . '*' izraz
+   15      | izraz . '/' izraz
+
+    '*'  shift, and go to state 33
+    '/'  shift, and go to state 34
+
+    $default  reduce using rule 13 (izraz)
+
+
+State 43
+
+   12 izraz: izraz . '+' izraz
+   13      | izraz . '-' izraz
+   14      | izraz . '*' izraz
+   14      | izraz '*' izraz .
+   15      | izraz . '/' izraz
+
+    $default  reduce using rule 14 (izraz)
+
+
+State 44
+
+   12 izraz: izraz . '+' izraz
+   13      | izraz . '-' izraz
+   14      | izraz . '*' izraz
+   15      | izraz . '/' izraz
+   15      | izraz '/' izraz .
+
+    $default  reduce using rule 15 (izraz)
+
+
+State 45
+
+   11 element: ID ':' . BROJ
+
+    BROJ  shift, and go to state 49
+
+
+State 46
+
+    9 lista_el: lista_el ',' . element
+
+    ID  shift, and go to state 35
+
+    element  go to state 50
+
+
+State 47
+
+    8 definicija: DEF_T '(' ID ',' lista_el ')' .
+
+    $default  reduce using rule 8 (definicija)
+
+
+State 48
+
+    3 naredba: PRINT_T '(' FMT_STRING ',' ID ')' .
+
+    $default  reduce using rule 3 (naredba)
+
+
+State 49
+
+   11 element: ID ':' BROJ .
+
+    $default  reduce using rule 11 (element)
+
+
+State 50
+
+    9 lista_el: lista_el ',' element .
+
+    $default  reduce using rule 9 (lista_el)
