@@ -1,0 +1,546 @@
+Terminals unused in grammar
+
+    EQ_T
+    GT_T
+    LT_T
+    BROJ_T
+    '*'
+
+
+State 24 conflicts: 2 shift/reduce
+State 32 conflicts: 1 shift/reduce
+State 33 conflicts: 2 shift/reduce
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: program naredba ';'
+    2        | naredba ';'
+
+    3 naredba: NISKA_T ID_T '=' izraz
+    4        | izraz
+
+    5 izraz: izraz '+' izraz
+    6      | '(' izraz ')'
+    7      | CONST_T
+    8      | izraz ',' izraz
+    9      | ID_T INC_T izraz
+   10      | ID_T '.' OBRNI_T '(' ')'
+   11      | ID_T '.' SORTIRAJ_T '(' ')'
+   12      | DUZINA_T '(' izraz ')'
+   13      | ID_T
+   14      | ID_T '.' PODNISKA_T '(' izraz ')'
+   15      | ID_T '.' MALA_T '(' ')'
+   16      | ID_T '.' VELIKA_T '(' ')'
+   17      | STAMPAJ_T '(' izraz ')'
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    '(' (40) 6 10 11 12 14 15 16 17
+    ')' (41) 6 10 11 12 14 15 16 17
+    '*' (42)
+    '+' (43) 5
+    ',' (44) 8
+    '.' (46) 10 11 14 15 16
+    ';' (59) 1 2
+    '=' (61) 3
+    error (256)
+    EQ_T (258)
+    GT_T (259)
+    LT_T (260)
+    INC_T (261) 9
+    MALA_T (262) 15
+    CONST_T (263) 7
+    NISKA_T (264) 3
+    OBRNI_T (265) 10
+    DUZINA_T (266) 12
+    VELIKA_T (267) 16
+    STAMPAJ_T (268) 17
+    PODNISKA_T (269) 14
+    SORTIRAJ_T (270) 11
+    ID_T <ime> (271) 3 9 10 11 13 14 15 16
+    BROJ_T <vrednost> (272)
+
+
+Nonterminals, with rules where they appear
+
+    $accept (26)
+        on left: 0
+    program (27)
+        on left: 1 2
+        on right: 0 1
+    naredba (28)
+        on left: 3 4
+        on right: 1 2
+    izraz <vrednost> (29)
+        on left: 5 6 7 8 9 10 11 12 13 14 15 16 17
+        on right: 3 4 5 6 8 9 12 14 17
+
+
+State 0
+
+    0 $accept: . program $end
+
+    CONST_T    shift, and go to state 1
+    NISKA_T    shift, and go to state 2
+    DUZINA_T   shift, and go to state 3
+    STAMPAJ_T  shift, and go to state 4
+    ID_T       shift, and go to state 5
+    '('        shift, and go to state 6
+
+    program  go to state 7
+    naredba  go to state 8
+    izraz    go to state 9
+
+
+State 1
+
+    7 izraz: CONST_T .
+
+    $default  reduce using rule 7 (izraz)
+
+
+State 2
+
+    3 naredba: NISKA_T . ID_T '=' izraz
+
+    ID_T  shift, and go to state 10
+
+
+State 3
+
+   12 izraz: DUZINA_T . '(' izraz ')'
+
+    '('  shift, and go to state 11
+
+
+State 4
+
+   17 izraz: STAMPAJ_T . '(' izraz ')'
+
+    '('  shift, and go to state 12
+
+
+State 5
+
+    9 izraz: ID_T . INC_T izraz
+   10      | ID_T . '.' OBRNI_T '(' ')'
+   11      | ID_T . '.' SORTIRAJ_T '(' ')'
+   13      | ID_T .
+   14      | ID_T . '.' PODNISKA_T '(' izraz ')'
+   15      | ID_T . '.' MALA_T '(' ')'
+   16      | ID_T . '.' VELIKA_T '(' ')'
+
+    INC_T  shift, and go to state 13
+    '.'    shift, and go to state 14
+
+    $default  reduce using rule 13 (izraz)
+
+
+State 6
+
+    6 izraz: '(' . izraz ')'
+
+    CONST_T    shift, and go to state 1
+    DUZINA_T   shift, and go to state 3
+    STAMPAJ_T  shift, and go to state 4
+    ID_T       shift, and go to state 5
+    '('        shift, and go to state 6
+
+    izraz  go to state 15
+
+
+State 7
+
+    0 $accept: program . $end
+    1 program: program . naredba ';'
+
+    $end       shift, and go to state 16
+    CONST_T    shift, and go to state 1
+    NISKA_T    shift, and go to state 2
+    DUZINA_T   shift, and go to state 3
+    STAMPAJ_T  shift, and go to state 4
+    ID_T       shift, and go to state 5
+    '('        shift, and go to state 6
+
+    naredba  go to state 17
+    izraz    go to state 9
+
+
+State 8
+
+    2 program: naredba . ';'
+
+    ';'  shift, and go to state 18
+
+
+State 9
+
+    4 naredba: izraz .
+    5 izraz: izraz . '+' izraz
+    8      | izraz . ',' izraz
+
+    '+'  shift, and go to state 19
+    ','  shift, and go to state 20
+
+    $default  reduce using rule 4 (naredba)
+
+
+State 10
+
+    3 naredba: NISKA_T ID_T . '=' izraz
+
+    '='  shift, and go to state 21
+
+
+State 11
+
+   12 izraz: DUZINA_T '(' . izraz ')'
+
+    CONST_T    shift, and go to state 1
+    DUZINA_T   shift, and go to state 3
+    STAMPAJ_T  shift, and go to state 4
+    ID_T       shift, and go to state 5
+    '('        shift, and go to state 6
+
+    izraz  go to state 22
+
+
+State 12
+
+   17 izraz: STAMPAJ_T '(' . izraz ')'
+
+    CONST_T    shift, and go to state 1
+    DUZINA_T   shift, and go to state 3
+    STAMPAJ_T  shift, and go to state 4
+    ID_T       shift, and go to state 5
+    '('        shift, and go to state 6
+
+    izraz  go to state 23
+
+
+State 13
+
+    9 izraz: ID_T INC_T . izraz
+
+    CONST_T    shift, and go to state 1
+    DUZINA_T   shift, and go to state 3
+    STAMPAJ_T  shift, and go to state 4
+    ID_T       shift, and go to state 5
+    '('        shift, and go to state 6
+
+    izraz  go to state 24
+
+
+State 14
+
+   10 izraz: ID_T '.' . OBRNI_T '(' ')'
+   11      | ID_T '.' . SORTIRAJ_T '(' ')'
+   14      | ID_T '.' . PODNISKA_T '(' izraz ')'
+   15      | ID_T '.' . MALA_T '(' ')'
+   16      | ID_T '.' . VELIKA_T '(' ')'
+
+    MALA_T      shift, and go to state 25
+    OBRNI_T     shift, and go to state 26
+    VELIKA_T    shift, and go to state 27
+    PODNISKA_T  shift, and go to state 28
+    SORTIRAJ_T  shift, and go to state 29
+
+
+State 15
+
+    5 izraz: izraz . '+' izraz
+    6      | '(' izraz . ')'
+    8      | izraz . ',' izraz
+
+    '+'  shift, and go to state 19
+    ')'  shift, and go to state 30
+    ','  shift, and go to state 20
+
+
+State 16
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+State 17
+
+    1 program: program naredba . ';'
+
+    ';'  shift, and go to state 31
+
+
+State 18
+
+    2 program: naredba ';' .
+
+    $default  reduce using rule 2 (program)
+
+
+State 19
+
+    5 izraz: izraz '+' . izraz
+
+    CONST_T    shift, and go to state 1
+    DUZINA_T   shift, and go to state 3
+    STAMPAJ_T  shift, and go to state 4
+    ID_T       shift, and go to state 5
+    '('        shift, and go to state 6
+
+    izraz  go to state 32
+
+
+State 20
+
+    8 izraz: izraz ',' . izraz
+
+    CONST_T    shift, and go to state 1
+    DUZINA_T   shift, and go to state 3
+    STAMPAJ_T  shift, and go to state 4
+    ID_T       shift, and go to state 5
+    '('        shift, and go to state 6
+
+    izraz  go to state 33
+
+
+State 21
+
+    3 naredba: NISKA_T ID_T '=' . izraz
+
+    CONST_T    shift, and go to state 1
+    DUZINA_T   shift, and go to state 3
+    STAMPAJ_T  shift, and go to state 4
+    ID_T       shift, and go to state 5
+    '('        shift, and go to state 6
+
+    izraz  go to state 34
+
+
+State 22
+
+    5 izraz: izraz . '+' izraz
+    8      | izraz . ',' izraz
+   12      | DUZINA_T '(' izraz . ')'
+
+    '+'  shift, and go to state 19
+    ')'  shift, and go to state 35
+    ','  shift, and go to state 20
+
+
+State 23
+
+    5 izraz: izraz . '+' izraz
+    8      | izraz . ',' izraz
+   17      | STAMPAJ_T '(' izraz . ')'
+
+    '+'  shift, and go to state 19
+    ')'  shift, and go to state 36
+    ','  shift, and go to state 20
+
+
+State 24
+
+    5 izraz: izraz . '+' izraz
+    8      | izraz . ',' izraz
+    9      | ID_T INC_T izraz .
+
+    '+'  shift, and go to state 19
+    ','  shift, and go to state 20
+
+    '+'       [reduce using rule 9 (izraz)]
+    ','       [reduce using rule 9 (izraz)]
+    $default  reduce using rule 9 (izraz)
+
+
+State 25
+
+   15 izraz: ID_T '.' MALA_T . '(' ')'
+
+    '('  shift, and go to state 37
+
+
+State 26
+
+   10 izraz: ID_T '.' OBRNI_T . '(' ')'
+
+    '('  shift, and go to state 38
+
+
+State 27
+
+   16 izraz: ID_T '.' VELIKA_T . '(' ')'
+
+    '('  shift, and go to state 39
+
+
+State 28
+
+   14 izraz: ID_T '.' PODNISKA_T . '(' izraz ')'
+
+    '('  shift, and go to state 40
+
+
+State 29
+
+   11 izraz: ID_T '.' SORTIRAJ_T . '(' ')'
+
+    '('  shift, and go to state 41
+
+
+State 30
+
+    6 izraz: '(' izraz ')' .
+
+    $default  reduce using rule 6 (izraz)
+
+
+State 31
+
+    1 program: program naredba ';' .
+
+    $default  reduce using rule 1 (program)
+
+
+State 32
+
+    5 izraz: izraz . '+' izraz
+    5      | izraz '+' izraz .
+    8      | izraz . ',' izraz
+
+    ','  shift, and go to state 20
+
+    ','       [reduce using rule 5 (izraz)]
+    $default  reduce using rule 5 (izraz)
+
+
+State 33
+
+    5 izraz: izraz . '+' izraz
+    8      | izraz . ',' izraz
+    8      | izraz ',' izraz .
+
+    '+'  shift, and go to state 19
+    ','  shift, and go to state 20
+
+    '+'       [reduce using rule 8 (izraz)]
+    ','       [reduce using rule 8 (izraz)]
+    $default  reduce using rule 8 (izraz)
+
+
+State 34
+
+    3 naredba: NISKA_T ID_T '=' izraz .
+    5 izraz: izraz . '+' izraz
+    8      | izraz . ',' izraz
+
+    '+'  shift, and go to state 19
+    ','  shift, and go to state 20
+
+    $default  reduce using rule 3 (naredba)
+
+
+State 35
+
+   12 izraz: DUZINA_T '(' izraz ')' .
+
+    $default  reduce using rule 12 (izraz)
+
+
+State 36
+
+   17 izraz: STAMPAJ_T '(' izraz ')' .
+
+    $default  reduce using rule 17 (izraz)
+
+
+State 37
+
+   15 izraz: ID_T '.' MALA_T '(' . ')'
+
+    ')'  shift, and go to state 42
+
+
+State 38
+
+   10 izraz: ID_T '.' OBRNI_T '(' . ')'
+
+    ')'  shift, and go to state 43
+
+
+State 39
+
+   16 izraz: ID_T '.' VELIKA_T '(' . ')'
+
+    ')'  shift, and go to state 44
+
+
+State 40
+
+   14 izraz: ID_T '.' PODNISKA_T '(' . izraz ')'
+
+    CONST_T    shift, and go to state 1
+    DUZINA_T   shift, and go to state 3
+    STAMPAJ_T  shift, and go to state 4
+    ID_T       shift, and go to state 5
+    '('        shift, and go to state 6
+
+    izraz  go to state 45
+
+
+State 41
+
+   11 izraz: ID_T '.' SORTIRAJ_T '(' . ')'
+
+    ')'  shift, and go to state 46
+
+
+State 42
+
+   15 izraz: ID_T '.' MALA_T '(' ')' .
+
+    $default  reduce using rule 15 (izraz)
+
+
+State 43
+
+   10 izraz: ID_T '.' OBRNI_T '(' ')' .
+
+    $default  reduce using rule 10 (izraz)
+
+
+State 44
+
+   16 izraz: ID_T '.' VELIKA_T '(' ')' .
+
+    $default  reduce using rule 16 (izraz)
+
+
+State 45
+
+    5 izraz: izraz . '+' izraz
+    8      | izraz . ',' izraz
+   14      | ID_T '.' PODNISKA_T '(' izraz . ')'
+
+    '+'  shift, and go to state 19
+    ')'  shift, and go to state 47
+    ','  shift, and go to state 20
+
+
+State 46
+
+   11 izraz: ID_T '.' SORTIRAJ_T '(' ')' .
+
+    $default  reduce using rule 11 (izraz)
+
+
+State 47
+
+   14 izraz: ID_T '.' PODNISKA_T '(' izraz ')' .
+
+    $default  reduce using rule 14 (izraz)
